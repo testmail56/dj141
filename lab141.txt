@@ -1,0 +1,42 @@
+#views
+
+from django.shortcuts import render
+from datetime import datetime, timedelta 
+def offset_time(request): 
+    current_time = datetime.now() 
+    offset_time_forward = current_time + timedelta(hours=4) 
+    offset_time_backward = current_time - timedelta(hours=4)
+    return render(request, 'pg3/offset_date.html', { 
+    'current_time': current_time, 
+    'offset_time_forward': offset_time_forward, 
+    'offset_time_backward': offset_time_backward, 
+    })
+
+
+#appURLs
+
+from django.urls import path 
+from . import views 
+urlpatterns = [ 
+path('offset_date/', views.offset_time, name='offset_time'), 
+]
+
+
+#pg3/templates/pg3/offset_date.html
+
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initialscale=1.0"> 
+<title>Date and Time with Offset</title> 
+</head> 
+<body> 
+<h2>Current Date and Time</h2> 
+<p>{{ current_time }}</p> 
+<h2>Date and Time Four Hours Ahead</h2> 
+<p>{{ offset_time_forward }}</p> 
+<h2>Date and Time Four Hours Before</h2> 
+<p>{{ offset_time_backward }}</p> 
+</body> 
+</html>
